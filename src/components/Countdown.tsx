@@ -42,53 +42,62 @@ export function Countdown() {
   ];
 
   return (
-    <section className="relative bg-brand-obsidian py-32 px-6 md:px-16 lg:px-24 border-y border-brand-charcoal overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="/countdown-bg.png" 
-          alt="Luxury Setting" 
-          className="w-full h-full object-cover object-center grayscale-[20%] contrast-110 brightness-[0.55]"
-        />
-        <div className="absolute inset-0 bg-brand-obsidian/50 backdrop-blur-[2px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-obsidian/90 via-transparent to-brand-obsidian/90"></div>
-      </div>
+    <section className="relative bg-[#E8D8BC] py-32 px-6 border-t border-[#B79A63]/30 overflow-hidden flex flex-col items-center">
+      <div className="absolute inset-0 bg-texture-paper opacity-50 mix-blend-multiply pointer-events-none"></div>
       
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col items-center">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-sans text-[10px] md:text-xs tracking-[0.5em] text-brand-champagne uppercase mb-16 md:mb-24 text-center text-shadow-dark"
-        >
-          Until the evening begins
-        </motion.h2>
+      <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center">
+        
+        <h2 className="font-serif text-3xl md:text-4xl text-[#3C2B25] uppercase tracking-[0.2em] mb-16 text-center">
+          Until we say "I do"
+        </h2>
 
-        <div className="flex flex-col md:flex-row items-center md:items-stretch justify-center w-full relative">
-          {units.map((unit, index) => (
-            <div key={index} className="flex flex-col md:flex-row items-center w-full md:w-auto relative">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="flex flex-col items-center justify-center py-8 md:py-0 md:px-12 lg:px-16"
-              >
-                <div className="font-serif text-6xl md:text-8xl lg:text-[7rem] text-brand-ivory font-light leading-none mb-4 text-shadow-dark">
-                  {unit.value}
+        {/* Vintage Ornamental Frame with Clock behind it */}
+        <div className="relative flex justify-center items-center p-8 md:p-16">
+          
+          {/* Subtle pocket watch mechanism illustration (SVG) */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+            <svg viewBox="0 0 200 200" className="w-[120%] h-[120%] md:w-[80%] md:h-[80%] stroke-[#3C2B25] fill-none">
+              <circle cx="100" cy="100" r="90" strokeWidth="2" strokeDasharray="4 4" />
+              <circle cx="100" cy="100" r="80" strokeWidth="1" />
+              <circle cx="100" cy="100" r="10" strokeWidth="2" />
+              <path d="M100 100 L100 40" strokeWidth="2" />
+              <path d="M100 100 L140 100" strokeWidth="3" />
+              {/* Roman Numerals marks */}
+              {[...Array(12)].map((_, i) => (
+                <line key={i} x1="100" y1="20" x2="100" y2="25" transform={`rotate(${i * 30} 100 100)`} strokeWidth="2" />
+              ))}
+            </svg>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative bg-[#FAF4E7] border border-[#B79A63] p-8 md:p-12 shadow-[0_10px_30px_rgba(60,43,37,0.1)] flex flex-col items-center"
+          >
+            {/* Inner ornamental corners */}
+            <div className="vintage-corners-inner absolute inset-2"></div>
+            
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 relative z-10">
+              {units.map((unit, index) => (
+                <div key={index} className="flex flex-col md:flex-row items-center">
+                  <div className="flex flex-col items-center justify-center w-24">
+                    <span className="font-serif text-5xl md:text-6xl text-[#681F2B] mb-2">{unit.value}</span>
+                    <span className="font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase text-[#3C2B25]/80">{unit.label}</span>
+                  </div>
+                  
+                  {index < units.length - 1 && (
+                    <div className="hidden md:flex items-center justify-center text-[#B79A63] mx-2">
+                       <svg viewBox="0 0 10 10" className="w-2 h-2 fill-current">
+                         <circle cx="5" cy="5" r="3" />
+                       </svg>
+                    </div>
+                  )}
                 </div>
-                <div className="font-sans text-[10px] md:text-xs tracking-[0.4em] text-brand-ivory/80 uppercase text-shadow-dark">
-                  {unit.label}
-                </div>
-              </motion.div>
-              
-              {index < units.length - 1 && (
-                <>
-                  <div className="hidden md:block w-[1px] bg-brand-champagne/40 self-stretch my-4"></div>
-                  <div className="md:hidden h-[1px] w-24 bg-brand-champagne/40 my-4"></div>
-                </>
-              )}
+              ))}
             </div>
-          ))}
+          </motion.div>
+          
         </div>
       </div>
     </section>

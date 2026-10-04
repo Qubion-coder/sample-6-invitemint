@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { X, Check } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { X } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface RSVPFormProps {
@@ -9,110 +9,139 @@ interface RSVPFormProps {
 
 export function RSVPForm({ onClose }: RSVPFormProps) {
   const [attendance, setAttendance] = useState<'accepts' | 'declines' | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Thank you for your response");
-    setTimeout(onClose, 1000);
+    setIsSubmitting(true);
+    
+    // Simulate seal animation
+    setTimeout(() => {
+      toast.success("Thank you for your response");
+      onClose();
+    }, 2000);
   };
 
   return (
     <motion.div
-      initial={{ x: '100%' }}
-      animate={{ x: 0 }}
-      exit={{ x: '100%' }}
-      transition={{ type: "tween", duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-50 flex justify-end"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
     >
-      <div className="absolute inset-0 bg-brand-obsidian/40 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-[#3C2B25]/60 backdrop-blur-sm" onClick={!isSubmitting ? onClose : undefined} />
       
-      <div className="w-full md:w-[500px] lg:w-[600px] h-full bg-brand-charcoal relative flex flex-col shadow-2xl border-l border-brand-champagne">
-        <div className="absolute top-0 bottom-0 left-0 w-[1px] bg-brand-champagne opacity-30"></div>
+      <motion.div 
+        initial={{ y: 50, scale: 0.95 }}
+        animate={{ y: 0, scale: 1 }}
+        exit={{ y: 20, scale: 0.95, opacity: 0 }}
+        className="w-full max-w-lg bg-texture-paper relative flex flex-col shadow-2xl overflow-hidden max-h-[90vh]"
+      >
+        <div className="absolute inset-2 md:inset-4 border-2 border-[#681F2B] pointer-events-none"></div>
+        <div className="absolute inset-3 md:inset-5 border border-[#681F2B]/30 pointer-events-none"></div>
         
-        <div className="flex justify-between items-center p-8 md:p-12 border-b border-brand-obsidian/50">
-          <h2 className="font-serif text-3xl md:text-4xl text-brand-ivory uppercase tracking-widest font-light">RSVP</h2>
+        <div className="relative flex justify-between items-center p-6 md:p-10 pb-4">
+          <h2 className="font-serif text-2xl md:text-3xl text-[#681F2B] uppercase tracking-widest text-center w-full">Your Response</h2>
           <button 
             onClick={onClose}
-            className="w-12 h-12 flex items-center justify-center border border-brand-champagne/30 text-brand-champagne hover:bg-brand-champagne hover:text-brand-obsidian transition-colors duration-300 rounded-full"
+            disabled={isSubmitting}
+            className="absolute right-6 md:right-10 top-6 md:top-10 text-[#3C2B25]/60 hover:text-[#681F2B] transition-colors"
           >
-            <X size={20} />
+            <X size={24} />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-8 md:p-12">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-10">
-            <div className="flex flex-col gap-4">
-              <label className="font-sans text-[10px] tracking-[0.3em] text-brand-champagne uppercase">Your Name</label>
-              <input 
-                type="text" 
-                required
-                className="w-full bg-transparent border-b border-brand-ivory/20 pb-4 text-brand-ivory font-serif text-2xl md:text-3xl focus:outline-none focus:border-brand-champagne transition-colors placeholder:text-brand-ivory/20"
-                placeholder="Enter your full name"
-              />
-            </div>
+        <div className="flex-1 overflow-y-auto p-6 md:p-10 pt-4 custom-scrollbar">
+          <AnimatePresence mode="wait">
+            {!isSubmitting ? (
+              <motion.form 
+                key="form"
+                exit={{ opacity: 0 }}
+                onSubmit={handleSubmit} 
+                className="flex flex-col gap-8 relative z-10"
+              >
+                <div className="flex flex-col gap-2">
+                  <label className="font-sans text-xs tracking-[0.2em] text-[#3C2B25] uppercase text-center">Your Name</label>
+                  <input 
+                    type="text" 
+                    required
+                    className="w-full bg-transparent border-b border-[#B79A63]/50 pb-2 text-[#3C2B25] font-serif text-xl md:text-2xl text-center focus:outline-none focus:border-[#681F2B] transition-colors placeholder:text-[#3C2B25]/30"
+                    placeholder="M. & Mme. Dupont"
+                  />
+                </div>
 
-            <div className="flex flex-col gap-4">
-              <label className="font-sans text-[10px] tracking-[0.3em] text-brand-champagne uppercase">Number of Guests</label>
-              <input 
-                type="number" 
-                min="1"
-                max="10"
-                required
-                className="w-full bg-transparent border-b border-brand-ivory/20 pb-4 text-brand-ivory font-serif text-2xl md:text-3xl focus:outline-none focus:border-brand-champagne transition-colors placeholder:text-brand-ivory/20"
-                placeholder="1"
-              />
-            </div>
+                <div className="flex flex-col gap-2">
+                  <label className="font-sans text-xs tracking-[0.2em] text-[#3C2B25] uppercase text-center">Number of Guests</label>
+                  <input 
+                    type="number" 
+                    min="1"
+                    max="10"
+                    required
+                    className="w-full bg-transparent border-b border-[#B79A63]/50 pb-2 text-[#3C2B25] font-serif text-xl md:text-2xl text-center focus:outline-none focus:border-[#681F2B] transition-colors placeholder:text-[#3C2B25]/30"
+                    placeholder="2"
+                  />
+                </div>
 
-            <div className="flex flex-col gap-6 mt-4">
-              <label className="font-sans text-[10px] tracking-[0.3em] text-brand-champagne uppercase">Attendance</label>
-              
-              <div className="flex flex-col gap-4">
-                <button
-                  type="button"
-                  onClick={() => setAttendance('accepts')}
-                  className={`w-full flex items-center justify-between p-6 border transition-all duration-300 ${
-                    attendance === 'accepts' 
-                      ? 'border-brand-champagne bg-brand-champagne/5 text-brand-champagne' 
-                      : 'border-brand-ivory/20 text-brand-ivory/60 hover:border-brand-champagne/50 hover:text-brand-ivory'
-                  }`}
-                >
-                  <span className="font-sans text-xs tracking-[0.2em] uppercase">Accepts with pleasure</span>
-                  <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
-                    attendance === 'accepts' ? 'border-brand-champagne bg-brand-champagne text-brand-obsidian' : 'border-brand-ivory/20'
-                  }`}>
-                    {attendance === 'accepts' && <Check size={12} />}
+                <div className="flex flex-col gap-4 mt-2">
+                  <label className="font-sans text-xs tracking-[0.2em] text-[#3C2B25] uppercase text-center">Will you join us?</label>
+                  
+                  <div className="flex flex-col gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setAttendance('accepts')}
+                      className={`w-full flex items-center justify-center p-4 border transition-all duration-300 ${
+                        attendance === 'accepts' 
+                          ? 'border-[#681F2B] bg-[#681F2B]/5 text-[#681F2B]' 
+                          : 'border-[#B79A63]/50 text-[#3C2B25]/80 hover:border-[#681F2B]/50'
+                      }`}
+                    >
+                      <span className="font-serif italic text-lg md:text-xl">Delighted to attend</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setAttendance('declines')}
+                      className={`w-full flex items-center justify-center p-4 border transition-all duration-300 ${
+                        attendance === 'declines' 
+                          ? 'border-[#681F2B] bg-[#681F2B]/5 text-[#681F2B]' 
+                          : 'border-[#B79A63]/50 text-[#3C2B25]/80 hover:border-[#681F2B]/50'
+                      }`}
+                    >
+                      <span className="font-serif italic text-lg md:text-xl">Sorry to miss it</span>
+                    </button>
                   </div>
-                </button>
+                </div>
 
-                <button
-                  type="button"
-                  onClick={() => setAttendance('declines')}
-                  className={`w-full flex items-center justify-between p-6 border transition-all duration-300 ${
-                    attendance === 'declines' 
-                      ? 'border-brand-champagne bg-brand-champagne/5 text-brand-champagne' 
-                      : 'border-brand-ivory/20 text-brand-ivory/60 hover:border-brand-champagne/50 hover:text-brand-ivory'
-                  }`}
+                <button 
+                  type="submit"
+                  disabled={!attendance}
+                  className="mt-6 w-full bg-[#681F2B] text-[#FAF4E7] py-4 font-sans text-xs tracking-[0.2em] uppercase hover:bg-[#7D3942] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-[#681F2B]"
                 >
-                  <span className="font-sans text-xs tracking-[0.2em] uppercase">Unable to attend</span>
-                  <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
-                    attendance === 'declines' ? 'border-brand-champagne bg-brand-champagne text-brand-obsidian' : 'border-brand-ivory/20'
-                  }`}>
-                    {attendance === 'declines' && <Check size={12} />}
-                  </div>
+                  Send Response
                 </button>
-              </div>
-            </div>
-
-            <button 
-              type="submit"
-              disabled={!attendance}
-              className="mt-8 w-full border border-brand-champagne bg-brand-champagne text-brand-obsidian py-5 font-sans text-xs tracking-[0.3em] uppercase hover:bg-transparent hover:text-brand-champagne transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Confirm
-            </button>
-          </form>
+              </motion.form>
+            ) : (
+              <motion.div 
+                key="seal"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex flex-col items-center justify-center h-full min-h-[300px] relative z-10"
+              >
+                {/* Wax seal animation */}
+                <motion.div 
+                  initial={{ scale: 2, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: "spring", stiffness: 100, damping: 10 }}
+                  className="w-24 h-24 rounded-full bg-[#681F2B] shadow-xl flex items-center justify-center border-2 border-[#7D3942] mb-6"
+                >
+                   <span className="font-serif text-[#FAF4E7] text-3xl">O&A</span>
+                </motion.div>
+                <p className="font-serif italic text-xl text-[#3C2B25]">Sealing your response...</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

@@ -1,88 +1,85 @@
 import { motion } from 'motion/react';
+import { FloatingPetals } from './FloatingPetals';
 
 export function Hero() {
   return (
-    <section className="min-h-screen relative flex flex-col md:flex-row w-full overflow-hidden">
-      {/* Desktop Layout - Left 45% Typography */}
-      <div className="hidden md:flex w-[45%] bg-brand-obsidian flex-col justify-end p-12 lg:p-20 z-10 relative">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
-          className="flex flex-col gap-6"
-        >
-          <p className="text-[10px] tracking-[0.4em] text-brand-champagne uppercase font-sans">
-            A Celebration of Love
-          </p>
-          
-          <h1 className="font-serif text-6xl lg:text-7xl xl:text-[6.5rem] uppercase font-light leading-[0.9]">
-            <span className="block mb-4">Olivia</span>
-            <span className="block text-brand-champagne font-serif italic text-5xl lg:text-6xl xl:text-[5.5rem] my-2">&amp;</span>
-            <span className="block">Alexander</span>
-          </h1>
-
-          <div className="h-[1px] w-12 bg-brand-champagne my-6"></div>
-
-          <div className="font-sans text-xs tracking-[0.2em] text-brand-ivory/80 uppercase space-y-3 flex flex-col">
-            <span className="font-serif italic text-brand-champagne text-xl lowercase tracking-normal">request the pleasure of your company</span>
-            <span className="opacity-60 text-[10px]">on the occasion of their wedding</span>
-          </div>
-
-          <div className="mt-12 flex flex-col gap-2 font-sans text-xs tracking-[0.3em] text-brand-ivory/60">
-            <span>14.11.2026</span>
-            <span>COLOMBO · SRI LANKA</span>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Desktop Layout - Right 55% Image */}
-      <div className="hidden md:block w-[55%] h-screen relative">
-        <div className="absolute inset-0 cinematic-overlay z-10"></div>
-        <img 
-          src="/hero-bg-custom.png"
-          alt="Luxury Wedding Venue"
-          className="w-full h-full object-cover grayscale-[40%] contrast-[1.1] brightness-75"
-        />
-      </div>
-
-      {/* Mobile Design */}
-      <div className="w-full h-screen relative md:hidden flex flex-col justify-end p-6 pb-24">
-        <img 
-          src="/hero-bg-custom.png"
-          alt="Luxury Wedding Venue"
-          className="absolute inset-0 w-full h-full object-cover grayscale-[40%] contrast-[1.1] brightness-[0.6]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-obsidian via-brand-obsidian/70 to-transparent z-10"></div>
+    <section className="min-h-screen relative flex items-center justify-center p-4 md:p-12 w-full overflow-hidden bg-transparent z-10">
+      
+      {/* The Stationery Card */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.5 }}
+        className="relative w-full max-w-4xl bg-[#F3E9D5] shadow-2xl p-6 md:p-16 flex flex-col items-center justify-center text-center mx-auto overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-texture-paper opacity-50 mix-blend-multiply pointer-events-none z-0"></div>
         
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
-          className="relative z-20 flex flex-col gap-4"
-        >
-          <p className="text-[9px] tracking-[0.4em] text-brand-champagne uppercase font-sans">
-            A Celebration of Love
-          </p>
+        {/* Vintage Couple Sketch Background */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center">
+          <img 
+            src="/heba.jpg" 
+            alt="Vintage Couple Sketch" 
+            className="w-full h-full object-cover opacity-[0.15] mix-blend-multiply" 
+          />
+        </div>
+
+        {/* Double Vintage Border */}
+        <div className="absolute inset-4 md:inset-8 vintage-border z-10 pointer-events-none">
+          <div className="vintage-corners absolute inset-0" />
+          <div className="vintage-corners-inner absolute inset-2" />
+        </div>
+
+        <div className="relative z-20 flex flex-col items-center max-w-2xl mx-auto w-full">
           
-          <h1 className="font-serif text-6xl uppercase font-light leading-none">
-            <span className="block mb-2">Olivia</span>
-            <span className="block text-brand-champagne font-serif italic text-4xl my-1">&amp;</span>
-            <span className="block">Alexander</span>
+          <p className="font-sans text-xs md:text-sm tracking-[0.3em] uppercase text-[#3C2B25] mb-6">
+            Together with their families
+          </p>
+
+          {/* Top Botanical Ornament */}
+          <div className="w-16 h-16 opacity-70 mb-8 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="w-10 h-10 fill-none stroke-[#7B8067]" strokeWidth="1.5">
+               <path d="M50 90 Q 50 50 10 30 Q 30 10 50 40 Q 70 10 90 30 Q 50 50 50 90" />
+               <path d="M50 90 Q 50 60 25 50 Q 40 30 50 60 Q 60 30 75 50 Q 50 60 50 90" />
+            </svg>
+          </div>
+
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-[5.5rem] uppercase font-medium leading-none text-[#681F2B] mb-2 drop-shadow-sm">
+            <span className="block mb-2 md:mb-4">Olivia</span>
+            <span className="block font-display italic text-4xl md:text-6xl text-[#B79A63] my-2 lowercase">&</span>
+            <span className="block mt-2 md:mt-4">Alexander</span>
           </h1>
 
-          <div className="h-[1px] w-8 bg-brand-champagne my-3"></div>
-
-          <div className="font-sans text-[10px] tracking-[0.2em] text-brand-ivory/80 uppercase flex flex-col gap-2">
-            <span className="font-serif italic text-brand-champagne text-lg lowercase tracking-normal">request the pleasure of your company</span>
-            <span className="opacity-60 text-[9px]">on the occasion of their wedding</span>
+          {/* Bottom Botanical Ornament */}
+          <div className="w-16 h-16 opacity-70 mt-6 mb-8 flex items-center justify-center">
+            <svg viewBox="0 0 100 100" className="w-10 h-10 fill-none stroke-[#7B8067]" strokeWidth="1.5" transform="rotate(180)">
+               <path d="M50 90 Q 50 50 10 30 Q 30 10 50 40 Q 70 10 90 30 Q 50 50 50 90" />
+            </svg>
           </div>
 
-          <div className="mt-8 flex flex-col gap-1 font-sans text-[10px] tracking-[0.3em] text-brand-ivory/60">
-            <span>14.11.2026</span>
-            <span>COLOMBO · SRI LANKA</span>
+          <div className="font-serif italic text-lg md:text-2xl text-[#3C2B25] flex flex-col items-center mb-8 gap-2">
+            <span>Request the pleasure of your company</span>
+            <span>as they begin their journey together</span>
           </div>
-        </motion.div>
-      </div>
+
+          <div className="w-24 h-[1px] bg-[#B79A63] mb-8" />
+
+          <div className="font-sans text-sm md:text-base tracking-[0.2em] uppercase text-[#3C2B25] flex flex-col gap-2 font-medium mb-10">
+            <span>Saturday</span>
+            <span className="text-xl md:text-2xl font-serif tracking-widest text-[#681F2B] my-1">14 November 2026</span>
+            <span>6:00 in the evening</span>
+          </div>
+
+          <div className="font-sans text-xs md:text-sm tracking-[0.25em] uppercase text-[#3C2B25] flex flex-col gap-1 mb-8">
+            <span className="font-medium text-[#7D3942]">The Grand Manor</span>
+            <span className="opacity-80">Colombo, Sri Lanka</span>
+          </div>
+
+        </div>
+
+        {/* Static decorative petals */}
+        <img src="/11.png" alt="" className="absolute bottom-6 left-6 w-24 h-auto opacity-70 -rotate-12 mix-blend-multiply pointer-events-none z-10" />
+      </motion.div>
+      
     </section>
   );
 }

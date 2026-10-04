@@ -1,59 +1,55 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
 import { RSVPForm } from './RSVPForm';
 
 export function RSVPSection() {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
-    <section className="min-h-[80vh] bg-[#050505] relative flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="/rsvp-bg.png" 
-          alt="Elegant floral arrangement" 
-          className="w-full h-full object-cover object-center grayscale-[20%] contrast-110 brightness-[0.55]"
-        />
-        <div className="absolute inset-0 bg-[#050505]/40 backdrop-blur-[1px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/60 to-[#050505]/30"></div>
-      </div>
+    <section className="min-h-screen bg-[#F3E9D5] relative flex flex-col items-center justify-center p-6 md:p-12 lg:p-24 overflow-hidden border-t border-[#B79A63]/30">
+      <div className="absolute inset-0 bg-texture-paper opacity-50 mix-blend-multiply pointer-events-none"></div>
       
-      <div className="w-full max-w-7xl mx-auto flex flex-col h-full relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="flex flex-col items-start max-w-4xl"
+      {/* Decorative Burgundy Frame */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2 }}
+        className="w-full max-w-3xl border-2 border-[#681F2B] p-8 md:p-16 relative flex flex-col items-center text-center bg-[#FAF4E7] shadow-[0_10px_40px_rgba(60,43,37,0.1)]"
+      >
+        {/* Inner thin border */}
+        <div className="absolute inset-2 border border-[#681F2B]/40 pointer-events-none"></div>
+
+        {/* Vintage botanical top */}
+        <div className="w-12 h-12 mb-8 opacity-80">
+          <svg viewBox="0 0 100 100" className="w-8 h-8 fill-none stroke-[#681F2B]" strokeWidth="2">
+             <path d="M50 100 Q 50 60 20 50 Q 50 40 50 0 Q 50 40 80 50 Q 50 60 50 100" />
+          </svg>
+        </div>
+
+        <h2 className="font-serif text-3xl md:text-5xl text-[#681F2B] uppercase tracking-[0.2em] mb-8">
+          Kindly Join Us
+        </h2>
+
+        <p className="font-serif italic text-xl md:text-3xl text-[#3C2B25] mb-8 max-w-md">
+          Your presence would make our celebration complete.
+        </p>
+
+        <p className="font-sans text-xs md:text-sm tracking-[0.2em] text-[#3C2B25] uppercase mb-12 font-medium">
+          Please RSVP by 31 October 2026
+        </p>
+
+        {/* Vintage Seal/Label Button */}
+        <button 
+          onClick={() => setIsFormOpen(true)}
+          className="relative group bg-[#681F2B] text-[#FAF4E7] px-12 py-4 shadow-xl border border-[#7D3942] hover:-translate-y-1 transition-transform"
         >
-          <p className="font-sans text-[10px] md:text-xs tracking-[0.5em] text-brand-champagne uppercase mb-8 md:mb-12 text-shadow-dark">
-            Your Presence
-          </p>
-          
-          <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-[5.5rem] text-brand-ivory leading-[1.2] font-light mb-16 md:mb-24 tracking-wide text-shadow-dark">
-            Would make the<br/><span className="text-brand-champagne italic">evening complete.</span>
-          </h2>
+          {/* Inner dash border for printed label effect */}
+          <div className="absolute inset-1 border border-[#FAF4E7]/30 border-dashed pointer-events-none"></div>
+          <span className="font-sans text-sm tracking-[0.3em] uppercase relative z-10">RSVP</span>
+        </button>
 
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full md:w-auto">
-            <button 
-              onClick={() => setIsFormOpen(true)}
-              className="group inline-flex items-center gap-4 border border-brand-champagne px-10 py-5 text-brand-champagne font-sans text-xs md:text-sm tracking-[0.3em] uppercase hover:bg-brand-champagne hover:text-[#050505] transition-all duration-500 w-full md:w-auto justify-center backdrop-blur-sm bg-[#050505]/30 shadow-2xl"
-            >
-              <span>RSVP Now</span>
-              <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-2" />
-            </button>
-
-            <div className="flex flex-col gap-2">
-              <span className="font-sans text-[10px] md:text-xs tracking-[0.3em] text-brand-ivory/80 uppercase text-shadow-dark">
-                Kindly respond by
-              </span>
-              <span className="font-sans text-sm md:text-base tracking-[0.2em] text-brand-ivory uppercase text-shadow-dark">
-                31 October 2026
-              </span>
-            </div>
-          </div>
-        </motion.div>
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {isFormOpen && (
