@@ -20,7 +20,7 @@ export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   
   useEffect(() => {
-    audioRef.current = new Audio("/La Vie en rose - E'dith Piaf.mp3");
+    audioRef.current = new Audio("/piaf.mp3");
     audioRef.current.loop = true;
     audioRef.current.volume = 0.3;
     audioRef.current.preload = 'auto';
