@@ -13,21 +13,16 @@ export function Venue() {
         transition={{ duration: 1.2 }}
         className="w-full max-w-5xl flex flex-col items-center relative z-10"
       >
-        {/* Irregular Antique Photo Frame */}
-        <div className="relative w-full aspect-[4/3] md:aspect-[16/9] bg-[#FAF4E7] p-4 md:p-6 shadow-2xl border border-[#D5C2A5] rotate-[1deg] flex flex-col items-center justify-center">
-          
-          <div className="absolute inset-4 md:inset-6 border border-[#B79A63]/60 z-10 pointer-events-none"></div>
-
-          <div className="w-full h-full relative overflow-hidden">
-            <img 
-              src="/venue-bg.jpg"
-              alt="The Grand Manor"
-              className="w-full h-full object-cover sepia-[0.4] saturate-[0.7] brightness-[0.9] contrast-[0.95]"
-            />
-          </div>
+        {/* Vintage Image */}
+        <div className="relative w-full max-w-4xl flex justify-center">
+          <img 
+            src="/vintage.jpg" 
+            alt="The Grand Manor" 
+            className="w-full h-auto drop-shadow-[0_15px_35px_rgba(60,43,37,0.15)]"
+          />
 
           {/* Burgundy Label Overlay */}
-          <div className="absolute -bottom-8 md:-bottom-12 right-8 md:right-16 bg-[#681F2B] text-[#FAF4E7] px-8 py-6 md:px-12 md:py-8 shadow-xl flex flex-col items-center text-center rotate-[-2deg] border border-[#7D3942]">
+          <div className="absolute -bottom-4 md:-bottom-8 right-4 md:right-8 bg-[#681F2B] text-[#FAF4E7] px-8 py-6 md:px-12 md:py-8 shadow-xl flex flex-col items-center text-center border border-[#7D3942]">
             <p className="font-sans text-[10px] md:text-xs tracking-[0.4em] uppercase mb-4 opacity-80">
               The Venue
             </p>
@@ -47,13 +42,6 @@ export function Venue() {
               <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-2" />
             </a>
           </div>
-
-          {/* Pressed Flower Detail Overlapping */}
-          <img 
-            src="/11.png" 
-            alt="" 
-            className="absolute -top-12 -left-12 w-32 md:w-48 h-auto rotate-[60deg] opacity-90 drop-shadow-lg pointer-events-none z-20"
-          />
         </div>
       </motion.div>
     </section>
